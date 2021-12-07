@@ -1,0 +1,17 @@
+{
+  "name": "sierra",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ken Irwin",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "config": "^3.3.6",
+    "js-base64": "^3.7.2",
+    "js-yaml": "^4.1.0"
+  }
+}
