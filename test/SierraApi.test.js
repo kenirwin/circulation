@@ -6,7 +6,6 @@ const axios = require('axios');
 jest.mock('axios');
 
 // Read test confs
-
 const fakeSierraConf = yaml.load(
   fs.readFileSync(__dirname + '/sample-data/fakeSierraConfig.yml', 'utf8')
 );
