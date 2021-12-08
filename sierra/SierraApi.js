@@ -38,6 +38,7 @@ module.exports = class SierraApi {
   }
 
   async query(endpoint, params = {}, method = 'get') {
+    console.log(`launching ${'method'}: ${'endpoint'}`);
     let json = await axios({
       method: method,
       url: this.urlPrefix + endpoint,
