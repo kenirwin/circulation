@@ -11,14 +11,16 @@ module.exports = class SierraApi {
 
   async getToken() {
     try {
-      let json = await axios({
+      let response = await axios({
         method: 'post',
         url: this.urlPrefix + this.conf.endpoints.token,
         headers: {
           Authorization: 'Basic ' + this.encodedKey,
         },
       });
-      this.accessToken = json.data.access_token;
+      //   console.log(__filename);
+      //   console.log('Response:', response);
+      this.accessToken = response.data.access_token;
       return this.accessToken;
     } catch (err) {
       console.log(err);
