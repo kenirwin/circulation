@@ -2,7 +2,7 @@ const config = require('config');
 const sierraConf = config.get('sierra');
 const circSystem = config.get('circSystem');
 const SierraDataGetter = require('./sierra/SierraDataGetter');
-const GetCircData = require('./GetCircData');
+const CircConnectionHandler = require('./CircConnectionHandler');
 
 (async () => {
   let circDataGetter;
@@ -14,7 +14,7 @@ const GetCircData = require('./GetCircData');
       throw new Error('circ system not found');
   }
   try {
-    let connection = new GetCircData(circDataGetter);
+    let connection = new CircConnectionHandler(circDataGetter);
     let res = await connection.getUserData('irwinkr');
     console.log(res);
   } catch (err) {

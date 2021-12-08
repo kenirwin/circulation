@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Ken Irwin",
   "license": "ISC",
@@ -13,5 +13,8 @@
     "config": "^3.3.6",
     "js-base64": "^3.7.2",
     "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "jest": "^27.4.3"
   }
 }
