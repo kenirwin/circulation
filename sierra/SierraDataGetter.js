@@ -10,17 +10,13 @@ module.exports = class SierraDataGetter {
 
   async getUserData(userId) {
     try {
-      this.token = await this.sierra.getToken();
+      await this.sierra.getToken();
     } catch (err) {
       console.error('Error getting accessToken:', err);
     }
 
-    this.user = {
-      id: userId,
-      display: {},
-    };
-
     try {
+      createUserObject(userId);
       getPatronBaseInfo(); // gets numeric id, moneyOwed, account link
       getNumCheckouts();
       getNumHolds();
@@ -30,7 +26,31 @@ module.exports = class SierraDataGetter {
     }
   }
 
-  async getPatronBaseInfo() {}
+  // getLocalUserId() {
+  //   return this.user.id;
+  // }
+
+  createUserObject(userId) {
+    this.user = {
+      id: userId,
+      display: {},
+    };
+  }
+
+  async getPatronBaseInfo() {
+    try {
+      const params = {
+        varFieldTag: 'u', //uid
+        varFieldContent: this.user.id, //received as argument
+        fields: 'moneyOwed,id',
+      };
+      let res = await this.sierra.patronFind(params);
+      this.user.numericId = res.data.id;
+      this.user.display.moneyOwed = res.data.moneyOwed;
+    } catch (err) {
+      console.log(err);
+    }
+  }
   async getNumCheckouts() {}
   async getNumHolds() {}
 };
@@ -38,12 +58,7 @@ module.exports = class SierraDataGetter {
 //   try {
 //     // define params to lookup user by userid
 //     // it will return an "id" needed for subsequent API calls
-//     const params = {
-//       varFieldTag: 'u', //uid
-//       varFieldContent: userId, //received as argument
-//       fields: 'moneyOwed,id',
-//     };
-//     let res = await this.sierra.patronFind(params);
+//
 //     // console.log('Bibs response:', res.data);
 //     let user = {
 //       patronId: res.data.id,
