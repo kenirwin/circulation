@@ -16,10 +16,10 @@ module.exports = class SierraDataGetter {
     }
 
     try {
-      createUserObject(userId);
-      getPatronBaseInfo(); // gets numeric id, moneyOwed, account link
-      getNumCheckouts();
-      getNumHolds();
+      this.createUserObject(userId);
+      this.getPatronBaseInfo(); // gets numeric id, moneyOwed, account link
+      this.getNumCheckouts();
+      this.getNumHolds();
       return this.user.display;
     } catch (err) {
       console.error('Error getting patron info from Sierra');
@@ -51,8 +51,22 @@ module.exports = class SierraDataGetter {
       console.log(err);
     }
   }
-  async getNumCheckouts() {}
-  async getNumHolds() {}
+  async getNumCheckouts() {
+    try {
+      let res = await this.sierra.patronQuery('checkouts', this.user.numericId);
+      this.user.display.numCheckouts = res.data.total;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async getNumHolds() {
+    try {
+      let res = await this.sierra.patronQuery('holds', this.user.numericId);
+      this.user.display.numHolds = res.data.total;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 };
 
 //   try {
