@@ -17,18 +17,14 @@ module.exports = class SierraDataGetter {
 
     try {
       this.createUserObject(userId);
-      this.getPatronBaseInfo(); // gets numeric id, moneyOwed, account link
-      this.getNumCheckouts();
-      this.getNumHolds();
+      await this.getPatronBaseInfo(); // gets numeric id, moneyOwed, account link
+      await this.getNumCheckouts();
+      await this.getNumHolds();
       return this.user.display;
     } catch (err) {
       console.error('Error getting patron info from Sierra');
     }
   }
-
-  // getLocalUserId() {
-  //   return this.user.id;
-  // }
 
   createUserObject(userId) {
     this.user = {
